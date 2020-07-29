@@ -6,13 +6,12 @@ const newQuoteBtn = document.getElementById('new-quote');
 
 const loader = document.getElementById('loader');
 
-// Show loading
-const loading = () => {
+const showLoadingSpinner = () => {
   quoteContainer.hidden = true;
   loader.hidden = false;
 };
-// Hide loading
-const complete = () => {
+
+const removeLoadingSpinner = () => {
   if (!loader.hidden) {
     loader.hidden = true;
     quoteContainer.hidden = false;
@@ -21,7 +20,7 @@ const complete = () => {
 
 // Get Quote From API
 async function getQuote() {
-  loading();
+  showLoadingSpinner();
 
   const apiUrl = 'http://quotes.stormconsultancy.co.uk/random.json';
   try {
@@ -42,10 +41,10 @@ async function getQuote() {
     }
     quoteText.innerText = data.quote;
     // Stop Loader, Show quote
-    complete();
+    removeLoadingSpinner();
   } catch (error) {
-    // getQuote();
-    // console.log('whoops, no quote', error);
+    getQuote();
+    console.log('whoops, no quote', error);
   }
 }
 
